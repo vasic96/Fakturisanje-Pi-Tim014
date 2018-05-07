@@ -1,4 +1,4 @@
-package tim014.pi.fakturisanje.Fakturisanje;
+package tim014.pi.fakturisanje;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
