@@ -1,12 +1,19 @@
 package tim014.pi.fakturisanje.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
+import tim014.pi.fakturisanje.dto.PreduzeceDTO;
+import tim014.pi.fakturisanje.repositories.MestoRepository;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Preduzece {
+
+
+    @Autowired
+    private MestoRepository mestoRepo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,6 +75,21 @@ public class Preduzece {
         this.fakture = fakture;
         this.cenovnici = cenovnici;
         this.mesto = mesto;
+    }
+
+    public Preduzece(PreduzeceDTO preduzeceDTO) {
+
+        this.naziv = preduzeceDTO.getNaziv();
+        this.adresa = preduzeceDTO.getAdresa();
+        this.pib = preduzeceDTO.getPib();
+        this.telefon = preduzeceDTO.getTelefon();
+        this.email = preduzeceDTO.getEmail();
+        this.password = preduzeceDTO.getPassword();
+        this.logo = preduzeceDTO.getLogo();
+        this.tip = preduzeceDTO.getTip();
+        this.mesto = mestoRepo.getOne(preduzeceDTO.getMestoId());
+
+
     }
 
 
