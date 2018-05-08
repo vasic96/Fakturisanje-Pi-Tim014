@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,18 +36,24 @@ public class Preduzece {
     @Column(nullable = false)
     private String tip;
 
+    @JsonIgnore
     @OneToMany
     private List<GrupaRobe> grupeRobe;
 
+    @JsonIgnore
     @OneToMany
     private List<Faktura> fakture;
 
+    @JsonIgnore
     @OneToMany
     private List<Cenovnik> cenovnici;
 
     @ManyToOne
     @JoinColumn(name = "mesto")
     private Mesto mesto;
+
+    public Preduzece() {
+    }
 
     public Preduzece(String naziv, String adresa, int pib, String telefon, String email, String password, String logo, String tip, List<GrupaRobe> grupeRobe, List<Faktura> fakture, List<Cenovnik> cenovnici, Mesto mesto) {
         this.naziv = naziv;
@@ -60,6 +68,15 @@ public class Preduzece {
         this.fakture = fakture;
         this.cenovnici = cenovnici;
         this.mesto = mesto;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNaziv() {
