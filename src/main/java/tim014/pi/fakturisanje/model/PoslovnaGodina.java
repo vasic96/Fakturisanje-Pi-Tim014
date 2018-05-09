@@ -26,6 +26,9 @@ public class PoslovnaGodina {
         this.fakture = new ArrayList<>();
     }
 
+    public PoslovnaGodina() {
+    }
+
     public Long getId() {
         return id;
     }

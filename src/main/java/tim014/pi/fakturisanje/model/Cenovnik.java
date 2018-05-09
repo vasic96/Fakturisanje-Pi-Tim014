@@ -28,6 +28,9 @@ public class Cenovnik {
         this.stavke = new ArrayList<>();
     }
 
+    public Cenovnik() {
+    }
+
     public Long getId() {
         return id;
     }

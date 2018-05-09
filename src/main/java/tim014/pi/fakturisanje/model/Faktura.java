@@ -63,6 +63,9 @@ public class Faktura {
         this.poslovnaGodina = poslovnaGodina;
     }
 
+    public Faktura() {
+    }
+
     public Long getId() {
         return id;
     }

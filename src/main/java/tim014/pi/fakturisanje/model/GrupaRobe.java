@@ -31,6 +31,9 @@ public class GrupaRobe {
         this.pdv = pdv;
     }
 
+    public GrupaRobe() {
+    }
+
     public Long getId() {
         return id;
     }

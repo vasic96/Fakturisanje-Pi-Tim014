@@ -22,6 +22,9 @@ public class JedinicaMere {
         this.roba = roba;
     }
 
+    public JedinicaMere() {
+    }
+
     public Long getId() {
         return id;
     }

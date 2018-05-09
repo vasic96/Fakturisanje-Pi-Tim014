@@ -35,6 +35,9 @@ public class Roba {
         this.grupaRobe = grupaRobe;
     }
 
+    public Roba() {
+    }
+
     public String getNaziv() {
         return naziv;
     }

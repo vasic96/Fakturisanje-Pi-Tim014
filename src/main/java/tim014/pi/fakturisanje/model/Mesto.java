@@ -29,7 +29,6 @@ public class Mesto {
     public Mesto() {
     }
 
-
     public Mesto(String grad, String drzava, List<Preduzece> preduzeca, List<PoslovniPartner> poslovniPartneri) {
         this.grad = grad;
         this.drzava = drzava;

@@ -27,6 +27,9 @@ public class StopaPDV {
         this.pdv = pdv;
     }
 
+    public StopaPDV() {
+    }
+
     public Long getId() {
         return id;
     }

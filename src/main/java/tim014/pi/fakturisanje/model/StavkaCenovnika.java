@@ -26,6 +26,9 @@ public class StavkaCenovnika {
         this.cenovnik = cenovnik;
     }
 
+    public StavkaCenovnika() {
+    }
+
     public Long getId() {
         return id;
     }

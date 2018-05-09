@@ -51,6 +51,9 @@ public class StavkaFakture {
         this.faktura = faktura;
     }
 
+    public StavkaFakture() {
+    }
+
     public Long getId() {
         return id;
     }

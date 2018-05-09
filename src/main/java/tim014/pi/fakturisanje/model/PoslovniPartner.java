@@ -3,7 +3,7 @@ package tim014.pi.fakturisanje.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "poslovna_godina")
+@Entity(name = "poslovni_partner")
 public class PoslovniPartner {
 
     @Id
@@ -38,6 +38,9 @@ public class PoslovniPartner {
         this.fakture = fakture;
         this.mesto = mesto;
         this.preduzece = preduzece;
+    }
+
+    public PoslovniPartner() {
     }
 
     public String getNaziv() {
