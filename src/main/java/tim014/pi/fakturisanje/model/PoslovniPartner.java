@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class PoslovniPartner {
     @Column(nullable = false)
     private char[] vrsta = new char[2];
 
+    @JsonIgnore
     @OneToMany
     private List<Faktura> fakture;
 

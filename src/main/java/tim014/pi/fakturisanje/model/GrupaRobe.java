@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class GrupaRobe {
     @Column(nullable = false, length = 70)
     private String naziv;
 
+    @JsonIgnore
     @OneToMany
     private List<Roba> roba;
 

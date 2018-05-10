@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class JedinicaMere {
     @Column(nullable = false, unique = true, length = 2)
     private char[] naziv = new char[2];
 
+    @JsonIgnore
     @OneToMany
     private List<Roba> roba;
 

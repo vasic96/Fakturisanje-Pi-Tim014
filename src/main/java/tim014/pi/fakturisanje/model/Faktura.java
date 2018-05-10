@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,7 @@ public class Faktura {
     @Column(nullable = false)
     private char[] status = new char[2];
 
+    @JsonIgnore
     @OneToMany
     private List<StavkaFakture> stavkeFakture;
 

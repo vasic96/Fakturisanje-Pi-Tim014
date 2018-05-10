@@ -1,7 +1,8 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "poslovna_godina")
@@ -17,13 +18,14 @@ public class PoslovnaGodina {
     @Column
     private boolean zakljucena;
 
+    @JsonIgnore
     @OneToMany
     private List<Faktura> fakture;
 
-    public PoslovnaGodina(int godina, boolean zakljucena) {
+    public PoslovnaGodina(int godina, boolean zakljucena, List<Faktura> fakture) {
         this.godina = godina;
         this.zakljucena = zakljucena;
-        this.fakture = new ArrayList<>();
+        this.fakture = fakture;
     }
 
     public PoslovnaGodina() {

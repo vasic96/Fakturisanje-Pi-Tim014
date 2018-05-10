@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,9 +15,11 @@ public class Roba {
     @Column(nullable = false)
     private String naziv;
 
+    @JsonIgnore
     @OneToMany
     private List<StavkaCenovnika> stavkeCenovnika;
 
+    @JsonIgnore
     @OneToMany
     private List<StavkaFakture> stavkeFakture;
 

@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +17,7 @@ public class Cenovnik {
     @Column(nullable = false, name = "datum_vazenja")
     private Date datumVazenja;
 
+    @JsonIgnore
     @OneToMany
     private List<StavkaCenovnika> stavke;
 

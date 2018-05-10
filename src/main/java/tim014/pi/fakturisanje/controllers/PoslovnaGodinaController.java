@@ -3,9 +3,8 @@ package tim014.pi.fakturisanje.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tim014.pi.fakturisanje.dto.PoslovnaGodinaDTO;
 import tim014.pi.fakturisanje.model.PoslovnaGodina;
 import tim014.pi.fakturisanje.repositories.PoslovnaGodinaRepository;
 
@@ -20,10 +19,23 @@ public class PoslovnaGodinaController {
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<PoslovnaGodina>> giveAllPGodina() {
-
         return new ResponseEntity<List<PoslovnaGodina>>(pGodinaRep.findAll(), HttpStatus.OK);
-
     }
 
+    @PostMapping(value = "/dodaj")
+    public ResponseEntity<PoslovnaGodinaDTO> register(@RequestBody PoslovnaGodinaDTO pGodinaDTO) {
+        if (pGodinaDTO != null) {
+            PoslovnaGodina pgodina = new PoslovnaGodina(pGodinaDTO.getGodina(), pGodinaDTO.isZakljucena(), pGodinaDTO.getFakture());
+            pGodinaRep.save(pgodina);
+            return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(pgodina), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/remove", consumes = "APPLICATION_JSON_VALUE")
+    public ResponseEntity<PoslovnaGodina> obrisiGodinu(@RequestBody Long id) {
+        pGodinaRep.deleteById(id);
+        return new ResponseEntity<PoslovnaGodina>(HttpStatus.OK);
+    }
 
 }

@@ -1,5 +1,7 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +16,11 @@ public class PDV {
     @Column(nullable = false, unique = true, length = 40)
     private String naziv;
 
-
+    @JsonIgnore
     @OneToMany
     private List<StopaPDV> stopePDV;
 
+    @JsonIgnore
     @OneToMany
     private List<GrupaRobe> grupeRobe;
 
