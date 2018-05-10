@@ -12,6 +12,7 @@ import tim014.pi.fakturisanje.model.Preduzece;
 import tim014.pi.fakturisanje.repositories.MestoRepository;
 import tim014.pi.fakturisanje.repositories.PreduzeceRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,9 +49,12 @@ public class PreduzeceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Preduzece>> svaPreduzeca() {
-
-        return new ResponseEntity<List<Preduzece>>(preduzeceRepo.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<PreduzeceDTO>> svaPreduzeca() {
+        List<PreduzeceDTO> preduzecaDTO = new ArrayList<>();
+        for (Preduzece preduzece : preduzeceRepo.findAll()) {
+            preduzecaDTO.add(new PreduzeceDTO(preduzece));
+        }
+        return new ResponseEntity<List<PreduzeceDTO>>(preduzecaDTO, HttpStatus.OK);
 
     }
 
