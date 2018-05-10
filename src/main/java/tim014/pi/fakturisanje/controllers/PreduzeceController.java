@@ -24,7 +24,7 @@ public class PreduzeceController {
     private MestoRepository mestoRepo;
 
     @PostMapping(value = "api/preduzece/dodaj")
-    public ResponseEntity<?> register(@RequestBody PreduzeceDTO preduzeceDTO) {
+    public ResponseEntity<PreduzeceDTO> register(@RequestBody PreduzeceDTO preduzeceDTO) {
 
         if (preduzeceDTO != null) {
 
@@ -38,9 +38,8 @@ public class PreduzeceController {
             preduzece.setLogo(preduzeceDTO.getLogo());
             preduzece.setTip(preduzeceDTO.getTip());
             preduzece.setMesto(mestoRepo.getOne(preduzeceDTO.getMestoId()));
-
-            return new ResponseEntity<>(new PreduzeceDTO(preduzece), HttpStatus.OK);
-
+            preduzeceRepo.save(preduzece);
+            return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
 
         }
 
