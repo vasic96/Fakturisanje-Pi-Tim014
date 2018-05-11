@@ -32,8 +32,8 @@ public class PoslovnaGodinaController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping(value = "/remove", consumes = "APPLICATION_JSON_VALUE")
-    public ResponseEntity<PoslovnaGodina> obrisiGodinu(@RequestBody Long id) {
+    @DeleteMapping(value = "/remove/{id}")
+    public ResponseEntity<PoslovnaGodina> obrisiGodinu(@PathVariable Long id) {
         pGodinaRep.deleteById(id);
         return new ResponseEntity<PoslovnaGodina>(HttpStatus.OK);
     }
