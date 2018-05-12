@@ -35,5 +35,28 @@ public class MestoController {
 
     }
 
+    @GetMapping(value = "/all/{id}")
+    public ResponseEntity<Mesto> dajMestoPoId(@PathVariable Long id) {
+
+        if (mestoRepo.existsById(id)) {
+            return new ResponseEntity<Mesto>(mestoRepo.getOne(id), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    @DeleteMapping(value = "/izbrisi/{id}")
+    public ResponseEntity<?> izbrisiMesto(@PathVariable Long id) {
+
+        if (mestoRepo.existsById(id)) {
+            mestoRepo.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
 
 }
