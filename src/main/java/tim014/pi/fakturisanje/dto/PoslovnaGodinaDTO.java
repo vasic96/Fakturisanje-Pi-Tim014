@@ -12,7 +12,6 @@ public class PoslovnaGodinaDTO {
     private long id;
     private int godina;
     private boolean zakljucena;
-    private List<Faktura> fakture;
 
     public PoslovnaGodinaDTO() {
     }
@@ -21,13 +20,11 @@ public class PoslovnaGodinaDTO {
         this.id = pGodina.getId();
         this.godina = pGodina.getGodina();
         this.zakljucena = pGodina.isZakljucena();
-        this.fakture = pGodina.getFakture();
     }
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -35,24 +32,11 @@ public class PoslovnaGodinaDTO {
     public boolean isZakljucena() {
         return zakljucena;
     }
-
     public void setZakljucena(boolean zakljucena) {
         this.zakljucena = zakljucena;
     }
 
-    public List<Faktura> getFakture() {
-        return fakture;
-    }
-
-    public void setFakture(List<Faktura> fakture) {
-        this.fakture = fakture;
-    }
-
-    public int getGodina() {
-
-        return godina;
-    }
-
+    public int getGodina() { return godina; }
     public void setGodina(int godina) {
         this.godina = godina;
     }

@@ -28,6 +28,11 @@ public class PoslovnaGodina {
         this.fakture = fakture;
     }
 
+    public PoslovnaGodina(int godina, boolean zakljucena) {
+        this.godina = godina;
+        this.zakljucena = zakljucena;
+    }
+
     public PoslovnaGodina() {
     }
 

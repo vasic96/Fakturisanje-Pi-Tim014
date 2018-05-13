@@ -37,7 +37,6 @@ public class Cenovnik {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -45,7 +44,6 @@ public class Cenovnik {
     public Date getDatumVazenja() {
         return datumVazenja;
     }
-
     public void setDatumVazenja(Date datumVazenja) {
         this.datumVazenja = datumVazenja;
     }
@@ -53,7 +51,6 @@ public class Cenovnik {
     public List<StavkaCenovnika> getStavke() {
         return stavke;
     }
-
     public void setStavke(List<StavkaCenovnika> stavke) {
         this.stavke = stavke;
     }
@@ -61,7 +58,6 @@ public class Cenovnik {
     public Preduzece getPreduzece() {
         return preduzece;
     }
-
     public void setPreduzece(Preduzece preduzece) {
         this.preduzece = preduzece;
     }

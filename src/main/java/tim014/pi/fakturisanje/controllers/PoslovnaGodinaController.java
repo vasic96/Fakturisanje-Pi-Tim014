@@ -22,10 +22,10 @@ public class PoslovnaGodinaController {
         return new ResponseEntity<List<PoslovnaGodina>>(pGodinaRep.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/dodaj")
+    @PostMapping(value = "/add")
     public ResponseEntity<PoslovnaGodinaDTO> register(@RequestBody PoslovnaGodinaDTO pGodinaDTO) {
         if (pGodinaDTO != null) {
-            PoslovnaGodina pgodina = new PoslovnaGodina(pGodinaDTO.getGodina(), pGodinaDTO.isZakljucena(), pGodinaDTO.getFakture());
+            PoslovnaGodina pgodina = new PoslovnaGodina(pGodinaDTO.getGodina(), pGodinaDTO.isZakljucena());
             pGodinaRep.save(pgodina);
             return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(pgodina), HttpStatus.OK);
         }
@@ -38,4 +38,11 @@ public class PoslovnaGodinaController {
         return new ResponseEntity<PoslovnaGodina>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all/{id}")
+    public ResponseEntity<PoslovnaGodina> dajPoslovnuGodinuPoId(@PathVariable Long id) {
+        if (!pGodinaRep.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<PoslovnaGodina>(pGodinaRep.getOne(id), HttpStatus.OK);
+    }
 }
