@@ -28,11 +28,11 @@ public class CenovnikController {
     }
 
     @PostMapping(value = "/add", consumes = "APPLICATION/JSON")
-    public ResponseEntity<Cenovnik> dodajCenovnik(@RequestBody Cenovnik mesto) {
-        if (mesto == null) {
+    public ResponseEntity<Cenovnik> dodajCenovnik(@RequestBody Cenovnik cenovnik) {
+        if (cenovnik == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Cenovnik>(cenovnikRepo.save(mesto), HttpStatus.OK);
+        return new ResponseEntity<Cenovnik>(cenovnikRepo.save(cenovnik), HttpStatus.OK);
     }
 
     @GetMapping(value = "/all/{id}")

@@ -42,10 +42,11 @@ public class Roba {
     public Roba() {
     }
 
+    public Long getId() { return id; }
+
     public String getNaziv() {
         return naziv;
     }
-
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
@@ -53,7 +54,6 @@ public class Roba {
     public List<StavkaCenovnika> getStavkeCenovnika() {
         return stavkeCenovnika;
     }
-
     public void setStavkeCenovnika(List<StavkaCenovnika> stavkeCenovnika) {
         this.stavkeCenovnika = stavkeCenovnika;
     }
@@ -61,7 +61,6 @@ public class Roba {
     public List<StavkaFakture> getStavkeFakture() {
         return stavkeFakture;
     }
-
     public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
         this.stavkeFakture = stavkeFakture;
     }
@@ -69,7 +68,6 @@ public class Roba {
     public JedinicaMere getJedinicaMere() {
         return jedinicaMere;
     }
-
     public void setJedinicaMere(JedinicaMere jedinicaMere) {
         this.jedinicaMere = jedinicaMere;
     }
@@ -77,7 +75,6 @@ public class Roba {
     public GrupaRobe getGrupaRobe() {
         return grupaRobe;
     }
-
     public void setGrupaRobe(GrupaRobe grupaRobe) {
         this.grupaRobe = grupaRobe;
     }
