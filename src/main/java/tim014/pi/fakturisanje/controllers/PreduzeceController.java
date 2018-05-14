@@ -3,10 +3,7 @@ package tim014.pi.fakturisanje.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.PreduzeceDTO;
 import tim014.pi.fakturisanje.model.Preduzece;
 import tim014.pi.fakturisanje.repositories.MestoRepository;
@@ -15,6 +12,7 @@ import tim014.pi.fakturisanje.repositories.PreduzeceRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping(value = "api/preduzece/")
 @RestController
 public class PreduzeceController {
 
@@ -24,7 +22,7 @@ public class PreduzeceController {
     @Autowired
     private MestoRepository mestoRepo;
 
-    @PostMapping(value = "api/preduzece/dodaj")
+    @PostMapping(value = "add")
     public ResponseEntity<PreduzeceDTO> register(@RequestBody PreduzeceDTO preduzeceDTO) {
 
         if (preduzeceDTO != null) {
@@ -48,7 +46,7 @@ public class PreduzeceController {
 
     }
 
-    @GetMapping
+    @GetMapping(value = "all")
     public ResponseEntity<List<PreduzeceDTO>> svaPreduzeca() {
         List<PreduzeceDTO> preduzecaDTO = new ArrayList<>();
         for (Preduzece preduzece : preduzeceRepo.findAll()) {

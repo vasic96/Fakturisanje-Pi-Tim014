@@ -16,6 +16,7 @@ public class PreduzeceDTO implements Serializable {
     private String logo;
     private String tip;
     private long mestoId;
+    private String gradDrzava;
 
     public PreduzeceDTO() {
 
@@ -33,7 +34,7 @@ public class PreduzeceDTO implements Serializable {
         this.logo = preduzece.getLogo();
         this.tip = preduzece.getTip();
         this.mestoId = preduzece.getMesto().getId();
-
+        this.gradDrzava = preduzece.getMesto().getGrad() + ", " + preduzece.getMesto().getDrzava();
     }
 
     public long getId() {
@@ -114,5 +115,13 @@ public class PreduzeceDTO implements Serializable {
 
     public void setMestoId(long mestoId) {
         this.mestoId = mestoId;
+    }
+
+    public String getGradDrzava() {
+        return gradDrzava;
+    }
+
+    public void setGradDrzava(String gradDrzava) {
+        this.gradDrzava = gradDrzava;
     }
 }
