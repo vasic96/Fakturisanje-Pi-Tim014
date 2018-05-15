@@ -56,5 +56,14 @@ public class PreduzeceController {
 
     }
 
+    @GetMapping(value = "mesto/{id}")
+    public ResponseEntity<List<PreduzeceDTO>> svaPreduzecaUMestu(@PathVariable Long id) {
+        List<PreduzeceDTO> preduzecaDTO = new ArrayList<>();
+        for (Preduzece preduzece : preduzeceRepo.findAllByMestoId(id)) {
+            preduzecaDTO.add(new PreduzeceDTO(preduzece));
+        }
+        return new ResponseEntity<List<PreduzeceDTO>>(preduzecaDTO, HttpStatus.OK);
+    }
+
 
 }

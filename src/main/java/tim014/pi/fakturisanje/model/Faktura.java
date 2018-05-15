@@ -1,8 +1,10 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,11 @@ public class Faktura {
     @Column(name = "broj_fakture", nullable = false)
     private int brojFakture;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "datum_fakture", nullable = false)
     private Date datumFakture;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "datum_valute", nullable = false)
     private Date datumValute;
 
@@ -31,8 +35,9 @@ public class Faktura {
     @Column(name = "iznos_za_placanje", nullable = false)
     private double iznosZaPlacanje;
 
+    @Size(min = 2, max = 2)
     @Column(nullable = false)
-    private char[] status = new char[2];
+    private String status;
 
     @JsonIgnore
     @OneToMany
@@ -51,7 +56,7 @@ public class Faktura {
     private PoslovnaGodina poslovnaGodina;
 
     public Faktura(int brojFakture, Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
-                   char[] status, List<StavkaFakture> stavkeFakture, Preduzece preduzece,
+                   String status, List<StavkaFakture> stavkeFakture, Preduzece preduzece,
                    PoslovniPartner poslovniPartner, PoslovnaGodina poslovnaGodina) {
         this.brojFakture = brojFakture;
         this.datumFakture = datumFakture;
@@ -125,11 +130,11 @@ public class Faktura {
         this.iznosZaPlacanje = iznosZaPlacanje;
     }
 
-    public char[] getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char[] status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
