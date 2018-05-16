@@ -8,7 +8,6 @@ public class GrupaRobeDTO {
 
 	private long id;
 	private String naziv;
-	private List<RobaDTO> robaDTO;
 	private long preduzeceID;
 	private long pdvID;
 	
@@ -17,11 +16,10 @@ public class GrupaRobeDTO {
 		
 		
 	}
-	public GrupaRobeDTO(long id, String naziv, List<RobaDTO> robaDTO, long preduzeceID, long pdvID) {
+	public GrupaRobeDTO(long id, String naziv, long preduzeceID, long pdvID) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.robaDTO = robaDTO;
 		this.preduzeceID = preduzeceID;
 		this.pdvID = pdvID;
 	}
@@ -48,12 +46,6 @@ public class GrupaRobeDTO {
 	}
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-	}
-	public List<RobaDTO> getRobaDTO() {
-		return robaDTO;
-	}
-	public void setRobaDTO(List<RobaDTO> robaDTO) {
-		this.robaDTO = robaDTO;
 	}
 	public long getPreduzeceID() {
 		return preduzeceID;

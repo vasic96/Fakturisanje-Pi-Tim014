@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.fabric.Response;
-
 import tim014.pi.fakturisanje.dto.RobaDTO;
 import tim014.pi.fakturisanje.model.Roba;
 import tim014.pi.fakturisanje.repositories.RobaRepository;
