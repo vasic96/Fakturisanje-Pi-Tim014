@@ -31,16 +31,6 @@ public class PdvController {
 		return new ResponseEntity<List<PDV>>(pdvRepository.findAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/add", consumes= "APPLICATION/JSON")
-	public ResponseEntity<PDV> addPDV(@RequestBody PDV pdv){
-		
-		if (pdv != null){
-			
-			return new ResponseEntity<PDV>(pdvRepository.save(pdv), HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
 	
 	@GetMapping(value = "/all/{id}")
 	public ResponseEntity<PDV>searchID(@PathVariable Long id){
@@ -49,6 +39,18 @@ public class PdvController {
 			
 			return new ResponseEntity<PDV>(pdvRepository.getOne(id), HttpStatus.OK);
 		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@PostMapping(value="/add", consumes= "APPLICATION/JSON")
+	public ResponseEntity<PDV> addPDV(@RequestBody PDV pdv){
+		
+		if (pdv != null){
+			
+			return new ResponseEntity<PDV>(pdvRepository.save(pdv), HttpStatus.OK);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	

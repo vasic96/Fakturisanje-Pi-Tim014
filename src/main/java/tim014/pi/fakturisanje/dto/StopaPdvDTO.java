@@ -10,7 +10,7 @@ public class StopaPdvDTO {
 	
 	private long id;
 	private double procenat; 
-	@JsonFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date datumVazenja;
 	private long pdvID;
 	

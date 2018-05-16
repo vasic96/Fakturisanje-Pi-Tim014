@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class StopaPdvController {
 	@Autowired
 	private StopaPdvRepository stopaPdvRepository;
 	
+	
 	@GetMapping(value="/all")
 	public ResponseEntity<List<StopaPdvDTO>> allPdv(){
 	      List<StopaPdvDTO> stopaPdva = new ArrayList<>();
@@ -34,7 +36,14 @@ public class StopaPdvController {
 	        return new ResponseEntity<List<StopaPdvDTO>>(stopaPdva, HttpStatus.OK);
 	}
 	
-	
+	@GetMapping(value="all/{id}")
+	public ResponseEntity<StopaPdvDTO>searchStopaID(@PathVariable long id){
+		
+		if(stopaPdvRepository.existsById(id)) {
+			return new ResponseEntity<StopaPdvDTO>(new StopaPdvDTO(stopaPdvRepository.getOne(id)), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 	
 	
 	@PostMapping(value= "/add",consumes= "APPLICATION/JSON")
@@ -42,7 +51,19 @@ public class StopaPdvController {
 	if (stopaPDV == null) {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-		return new ResponseEntity<StopaPDV>(stopaPdvRepository.save(stopaPDV), HttpStatus.OK);
+		return new ResponseEntity<StopaPDV>(stopaPdvRepository.save(stopaPDV), HttpStatus.CREATED);
 		
 	}
+	
+	@DeleteMapping(value = "delete/{id}")
+	
+	public ResponseEntity<?>deleteStopaPdv(@PathVariable Long id){
+		if(stopaPdvRepository.existsById(id)) {
+			stopaPdvRepository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);	
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+
 }
