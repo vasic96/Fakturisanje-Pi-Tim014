@@ -10,14 +10,14 @@ public class CenovnikDTO {
 
     private Long id;
     private Date datumVazenja;
-    private Long preduzeceId;
+    private String preduzeceIme;
 
     public CenovnikDTO(){}
 
     public CenovnikDTO(Cenovnik cenovnik) {
         this.id = cenovnik.getId();
         this.datumVazenja = cenovnik.getDatumVazenja();
-        this.preduzeceId = cenovnik.getPreduzece().getId();
+        this.preduzeceIme = cenovnik.getPreduzece().getNaziv();
     }
 
     public Long getId() { return id; }
@@ -26,7 +26,7 @@ public class CenovnikDTO {
     public Date getDatumVazenja() { return datumVazenja; }
     public void setDatumVazenja(Date date) { this.datumVazenja = date; }
 
-    public Long getPreduzeceId() { return preduzeceId; }
-    public void setPreduzeceId(Long id) { this.preduzeceId = id; }
+    public String getPreduzeceIme() { return preduzeceIme; }
+    public void setPreduzeceIme(String ime) { this.preduzeceIme = ime; }
 
 }
