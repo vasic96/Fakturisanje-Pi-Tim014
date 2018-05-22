@@ -14,13 +14,13 @@ public class JedinicaMere {
 
 
     @Column(nullable = false, unique = true, length = 2)
-    private char[] naziv = new char[2];
+    private String naziv;
 
     @JsonIgnore
     @OneToMany
     private List<Roba> roba;
 
-    public JedinicaMere(char[] naziv, List<Roba> roba) {
+    public JedinicaMere(String naziv, List<Roba> roba) {
         this.naziv = naziv;
         this.roba = roba;
     }
@@ -36,11 +36,11 @@ public class JedinicaMere {
         this.id = id;
     }
 
-    public char[] getNaziv() {
+    public String getNaziv() {
         return naziv;
     }
 
-    public void setNaziv(char[] naziv) {
+    public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
 

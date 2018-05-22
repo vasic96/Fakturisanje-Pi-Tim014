@@ -19,7 +19,7 @@ public class PoslovniPartner {
     private String adresa;
 
     @Column(nullable = false)
-    private char[] vrsta = new char[2];
+    private String vrsta;
 
     @JsonIgnore
     @OneToMany
@@ -34,7 +34,7 @@ public class PoslovniPartner {
     private Preduzece preduzece;
 
 
-    public PoslovniPartner(String naziv, String adresa, char[] vrsta, List<Faktura> fakture, Mesto mesto, Preduzece preduzece) {
+    public PoslovniPartner(String naziv, String adresa, String vrsta, List<Faktura> fakture, Mesto mesto, Preduzece preduzece) {
         this.naziv = naziv;
         this.adresa = adresa;
         this.vrsta = vrsta;
@@ -70,11 +70,11 @@ public class PoslovniPartner {
         this.adresa = adresa;
     }
 
-    public char[] getVrsta() {
+    public String getVrsta() {
         return vrsta;
     }
 
-    public void setVrsta(char[] vrsta) {
+    public void setVrsta(String vrsta) {
         this.vrsta = vrsta;
     }
 

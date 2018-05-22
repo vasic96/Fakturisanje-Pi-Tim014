@@ -8,7 +8,7 @@ public class PoslovniPartnerDTO {
     private Long id;
     private String naziv;
     private String adresa;
-    private char[] vrsta = new char[2];
+    private String vrsta;
     private Long mestoId;
     private Long preduzeceId;
 }
