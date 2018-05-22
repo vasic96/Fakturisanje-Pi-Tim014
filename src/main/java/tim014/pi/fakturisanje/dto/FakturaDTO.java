@@ -14,8 +14,11 @@ public class FakturaDTO {
     private double iznosZaPlacanje;
     private String status;
     private long preduzeceId;
+    private String preduzeceNaziv;
     private long poslovniPartnerId;
+    private String poslovniPartnerNaziv;
     private long poslovnaGodinaId;
+    private long poslovnaGodina;
 
     public FakturaDTO() {
     }
@@ -31,6 +34,9 @@ public class FakturaDTO {
         this.preduzeceId = faktura.getPreduzece().getId();
         this.poslovnaGodinaId = faktura.getPoslovnaGodina().getId();
         this.poslovniPartnerId = faktura.getPoslovniPartner().getId();
+        this.preduzeceNaziv = faktura.getPreduzece().getNaziv();
+        this.poslovniPartnerNaziv = faktura.getPoslovniPartner().getNaziv();
+        this.poslovnaGodina = faktura.getPoslovnaGodina().getGodina();
 
     }
 
@@ -112,5 +118,29 @@ public class FakturaDTO {
 
     public void setPoslovnaGodinaId(long poslovnaGodinaId) {
         this.poslovnaGodinaId = poslovnaGodinaId;
+    }
+
+    public String getPreduzeceNaziv() {
+        return preduzeceNaziv;
+    }
+
+    public void setPreduzeceNaziv(String preduzeceNaziv) {
+        this.preduzeceNaziv = preduzeceNaziv;
+    }
+
+    public String getPoslovniPartnerNaziv() {
+        return poslovniPartnerNaziv;
+    }
+
+    public void setPoslovniPartnerNaziv(String poslovniPartnerNaziv) {
+        this.poslovniPartnerNaziv = poslovniPartnerNaziv;
+    }
+
+    public long getPoslovnaGodina() {
+        return poslovnaGodina;
+    }
+
+    public void setPoslovnaGodina(long poslovnaGodina) {
+        this.poslovnaGodina = poslovnaGodina;
     }
 }

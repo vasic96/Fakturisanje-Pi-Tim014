@@ -19,20 +19,20 @@ public class Faktura {
     private int brojFakture;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "datum_fakture", nullable = false)
+    @Column(name = "datum_fakture", nullable = false,columnDefinition = "DATE")
     private Date datumFakture;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    @Column(name = "datum_valute", nullable = false)
+    @Column(name = "datum_valute", nullable = false,columnDefinition = "DATE")
     private Date datumValute;
 
-    @Column(nullable = false)
+    @Column
     private double osnovica;
 
-    @Column(name = "ukupan_pdv", nullable = false)
+    @Column(name = "ukupan_pdv")
     private double ukupanPDV;
 
-    @Column(name = "iznos_za_placanje", nullable = false)
+    @Column(name = "iznos_za_placanje")
     private double iznosZaPlacanje;
 
     @Size(min = 2, max = 2)
