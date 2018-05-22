@@ -16,9 +16,6 @@ public class Faktura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "broj_fakture", nullable = false)
-    private int brojFakture;
-
 
     @Column(name = "datum_fakture", nullable = false,columnDefinition = "DATE")
     private Date datumFakture;
@@ -56,10 +53,9 @@ public class Faktura {
     @JoinColumn(name = "poslovna_godina")
     private PoslovnaGodina poslovnaGodina;
 
-    public Faktura(int brojFakture, Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
+    public Faktura(Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
                    String status, List<StavkaFakture> stavkeFakture, Preduzece preduzece,
                    PoslovniPartner poslovniPartner, PoslovnaGodina poslovnaGodina) {
-        this.brojFakture = brojFakture;
         this.datumFakture = datumFakture;
         this.datumValute = datumValute;
         this.osnovica = osnovica;
@@ -81,14 +77,6 @@ public class Faktura {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getBrojFakture() {
-        return brojFakture;
-    }
-
-    public void setBrojFakture(int brojFakture) {
-        this.brojFakture = brojFakture;
     }
 
     public Date getDatumFakture() {
