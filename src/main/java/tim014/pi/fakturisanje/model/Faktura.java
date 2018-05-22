@@ -2,6 +2,7 @@ package tim014.pi.fakturisanje.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -18,21 +19,21 @@ public class Faktura {
     @Column(name = "broj_fakture", nullable = false)
     private int brojFakture;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+
     @Column(name = "datum_fakture", nullable = false,columnDefinition = "DATE")
     private Date datumFakture;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+
     @Column(name = "datum_valute", nullable = false,columnDefinition = "DATE")
     private Date datumValute;
 
-    @Column
+    @Column(columnDefinition = "DOUBLE DEFAULT 0")
     private double osnovica;
 
-    @Column(name = "ukupan_pdv")
+    @Column(name = "ukupan_pdv",columnDefinition = "DOUBLE DEFAULT 0")
     private double ukupanPDV;
 
-    @Column(name = "iznos_za_placanje")
+    @Column(name = "iznos_za_placanje",columnDefinition = "DOUBLE DEFAULT 0")
     private double iznosZaPlacanje;
 
     @Size(min = 2, max = 2)
