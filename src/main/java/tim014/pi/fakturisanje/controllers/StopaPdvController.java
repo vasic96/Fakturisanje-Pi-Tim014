@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim014.pi.fakturisanje.dto.StopaPdvDTO;
 import tim014.pi.fakturisanje.model.StopaPDV;
-import tim014.pi.fakturisanje.repositories.PdvRepository;
 import tim014.pi.fakturisanje.repositories.StopaPdvRepository;
 
 @RestController

@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,7 @@ public class RobaController {
 	@Autowired
 	private RobaRepository robaRepository;
 	
+	
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<RobaDTO>>allRoba(){
 		List<RobaDTO> robaDTOs= new ArrayList<>();
@@ -31,6 +34,17 @@ public class RobaController {
 		}
 		
 		return new ResponseEntity<List<RobaDTO>>(robaDTOs, HttpStatus.OK);
+	}
+	
+	
+	@DeleteMapping(value = "delete/{id}")
+		public ResponseEntity<?> deleteRoba(@PathVariable Long id){
+			if(robaRepository.existsById(id)) {
+				
+				robaRepository.deleteById(id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	
