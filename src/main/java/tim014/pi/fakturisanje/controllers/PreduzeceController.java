@@ -3,7 +3,6 @@ package tim014.pi.fakturisanje.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.PreduzeceDTO;
 import tim014.pi.fakturisanje.model.Preduzece;
@@ -23,8 +22,6 @@ public class PreduzeceController {
     @Autowired
     private MestoRepository mestoRepo;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping(value = "sign-up")
     public ResponseEntity<PreduzeceDTO> register(@RequestBody PreduzeceDTO preduzeceDTO) {
@@ -37,7 +34,7 @@ public class PreduzeceController {
             preduzece.setPib(preduzeceDTO.getPib());
             preduzece.setTelefon(preduzeceDTO.getTelefon());
             preduzece.setEmail(preduzeceDTO.getEmail());
-            preduzece.setPassword(bCryptPasswordEncoder.encode(preduzeceDTO.getPassword()));
+            preduzece.setPassword(preduzeceDTO.getPassword());
             preduzece.setLogo(preduzeceDTO.getLogo());
             preduzece.setTip(preduzeceDTO.getTip());
             preduzece.setMesto(mestoRepo.getOne(preduzeceDTO.getMestoId()));
