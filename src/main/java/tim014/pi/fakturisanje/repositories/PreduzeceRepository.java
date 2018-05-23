@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PreduzeceRepository extends JpaRepository<Preduzece, Long> {
     List<Preduzece> findAllByMestoId(Long id);
+    Preduzece findByEmail(String email);
 }
