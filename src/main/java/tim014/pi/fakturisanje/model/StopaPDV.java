@@ -13,7 +13,7 @@ public class StopaPDV {
     @Column(nullable = false)
     private double procenat;
 
-    @Column(name = "datum_vazenja", nullable = false)
+    @Column(name = "datum_vazenja", nullable = false,columnDefinition = "DATE")
     private Date datumVazenja;
 
     @ManyToOne

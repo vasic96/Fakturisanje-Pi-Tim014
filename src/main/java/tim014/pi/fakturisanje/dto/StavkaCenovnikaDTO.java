@@ -9,6 +9,7 @@ public class StavkaCenovnikaDTO {
     private Long id;
     private double cena;
     private Long robaId;
+    private String robaNaziv;
     private Long cenovnikId;
 
     public StavkaCenovnikaDTO(){}
@@ -18,6 +19,7 @@ public class StavkaCenovnikaDTO {
         this.cena = stavkaCenovnika.getCena();
         this.robaId = stavkaCenovnika.getRoba().getId();
         this.cenovnikId = stavkaCenovnika.getCenovnik().getId();
+        this.robaNaziv = stavkaCenovnika.getRoba().getNaziv();
     }
 
     public Long getId() { return id; }
@@ -31,4 +33,12 @@ public class StavkaCenovnikaDTO {
 
     public Long getCenovnikId() { return cenovnikId; }
     public void setCenovnikId(Long cenovnikId) { this.cenovnikId = cenovnikId; }
+
+    public String getRobaNaziv() {
+        return robaNaziv;
+    }
+
+    public void setRobaNaziv(String robaNaziv) {
+        this.robaNaziv = robaNaziv;
+    }
 }

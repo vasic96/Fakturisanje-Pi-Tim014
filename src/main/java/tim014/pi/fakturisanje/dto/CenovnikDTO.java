@@ -1,11 +1,9 @@
 package tim014.pi.fakturisanje.dto;
 
-import org.springframework.web.bind.annotation.RestController;
 import tim014.pi.fakturisanje.model.Cenovnik;
 
 import java.util.Date;
 
-@RestController
 public class CenovnikDTO {
 
     private Long id;

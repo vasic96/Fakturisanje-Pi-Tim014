@@ -2,6 +2,7 @@ package tim014.pi.fakturisanje.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -15,24 +16,21 @@ public class Faktura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "broj_fakture", nullable = false)
-    private int brojFakture;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "datum_fakture", nullable = false,columnDefinition = "DATE")
     private Date datumFakture;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+
     @Column(name = "datum_valute", nullable = false,columnDefinition = "DATE")
     private Date datumValute;
 
-    @Column
+    @Column(columnDefinition = "DOUBLE DEFAULT 0")
     private double osnovica;
 
-    @Column(name = "ukupan_pdv")
+    @Column(name = "ukupan_pdv",columnDefinition = "DOUBLE DEFAULT 0")
     private double ukupanPDV;
 
-    @Column(name = "iznos_za_placanje")
+    @Column(name = "iznos_za_placanje",columnDefinition = "DOUBLE DEFAULT 0")
     private double iznosZaPlacanje;
 
     @Size(min = 2, max = 2)
@@ -55,10 +53,9 @@ public class Faktura {
     @JoinColumn(name = "poslovna_godina")
     private PoslovnaGodina poslovnaGodina;
 
-    public Faktura(int brojFakture, Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
+    public Faktura(Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
                    String status, List<StavkaFakture> stavkeFakture, Preduzece preduzece,
                    PoslovniPartner poslovniPartner, PoslovnaGodina poslovnaGodina) {
-        this.brojFakture = brojFakture;
         this.datumFakture = datumFakture;
         this.datumValute = datumValute;
         this.osnovica = osnovica;
@@ -80,14 +77,6 @@ public class Faktura {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getBrojFakture() {
-        return brojFakture;
-    }
-
-    public void setBrojFakture(int brojFakture) {
-        this.brojFakture = brojFakture;
     }
 
     public Date getDatumFakture() {

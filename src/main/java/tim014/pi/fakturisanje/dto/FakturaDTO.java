@@ -19,7 +19,6 @@ public class FakturaDTO {
     private String poslovniPartnerNaziv;
     private long poslovnaGodinaId;
     private long poslovnaGodina;
-
     public FakturaDTO() {
     }
 
@@ -37,7 +36,6 @@ public class FakturaDTO {
         this.preduzeceNaziv = faktura.getPreduzece().getNaziv();
         this.poslovniPartnerNaziv = faktura.getPoslovniPartner().getNaziv();
         this.poslovnaGodina = faktura.getPoslovnaGodina().getGodina();
-
     }
 
     public long getId() {
@@ -143,4 +141,5 @@ public class FakturaDTO {
     public void setPoslovnaGodina(long poslovnaGodina) {
         this.poslovnaGodina = poslovnaGodina;
     }
+
 }

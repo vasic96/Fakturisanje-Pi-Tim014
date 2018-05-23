@@ -14,7 +14,7 @@ public class Cenovnik {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "datum_vazenja")
+    @Column(nullable = false, name = "datum_vazenja",columnDefinition = "DATE")
     private Date datumVazenja;
 
     @JsonIgnore

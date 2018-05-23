@@ -1,6 +1,8 @@
 package tim014.pi.fakturisanje.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity(name = "stavka_fakture")
 public class StavkaFakture {
@@ -15,12 +17,16 @@ public class StavkaFakture {
     @Column(name = "jedinicna_cena", nullable = false)
     private double jedinicnaCena;
 
+    @Min(1)
+    @Max(100)
     @Column(nullable = false)
     private double rabat;
 
     @Column(name = "osnovica_pdv", nullable = false)
     private double osnovicaPDV;
 
+    @Min(1)
+    @Max(100)
     @Column(name = "procenat_pdv", nullable = false)
     private double procenatPDV;
 

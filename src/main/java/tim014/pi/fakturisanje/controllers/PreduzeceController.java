@@ -12,7 +12,7 @@ import tim014.pi.fakturisanje.repositories.PreduzeceRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping(value = "api/preduzece/")
+
 @RestController
 public class PreduzeceController {
 
@@ -22,7 +22,8 @@ public class PreduzeceController {
     @Autowired
     private MestoRepository mestoRepo;
 
-    @PostMapping(value = "add")
+
+    @PostMapping(value = "sign-up")
     public ResponseEntity<PreduzeceDTO> register(@RequestBody PreduzeceDTO preduzeceDTO) {
 
         if (preduzeceDTO != null) {
@@ -46,7 +47,7 @@ public class PreduzeceController {
 
     }
 
-    @GetMapping(value = "all")
+    @GetMapping(value = "api/preduzece/all")
     public ResponseEntity<List<PreduzeceDTO>> svaPreduzeca() {
         List<PreduzeceDTO> preduzecaDTO = new ArrayList<>();
         for (Preduzece preduzece : preduzeceRepo.findAll()) {
@@ -56,7 +57,7 @@ public class PreduzeceController {
 
     }
 
-    @GetMapping(value = "mesto/{id}")
+    @GetMapping(value = "api/preduzece/mesto/{id}")
     public ResponseEntity<List<PreduzeceDTO>> svaPreduzecaUMestu(@PathVariable Long id) {
         List<PreduzeceDTO> preduzecaDTO = new ArrayList<>();
         for (Preduzece preduzece : preduzeceRepo.findAllByMestoId(id)) {

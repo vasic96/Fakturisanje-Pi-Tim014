@@ -13,6 +13,7 @@ public class StavkaFaktureDTO {
     private double iznosPDV;
     private double iznosStavke;
     private long robaId;
+    private String robaNaziv;
     private long fakturaId;
 
 
@@ -28,8 +29,11 @@ public class StavkaFaktureDTO {
         this.iznosStavke = stavkaFakture.getIznosStavka();
         this.robaId = stavkaFakture.getRoba().getId();
         this.fakturaId = stavkaFakture.getFaktura().getId();
+        this.robaNaziv = stavkaFakture.getRoba().getNaziv();
 
     }
+
+    public StavkaFaktureDTO(){}
 
     public long getId() {
         return id;
@@ -109,5 +113,13 @@ public class StavkaFaktureDTO {
 
     public void setFakturaId(long fakturaId) {
         this.fakturaId = fakturaId;
+    }
+
+    public String getRobaNaziv() {
+        return robaNaziv;
+    }
+
+    public void setRobaNaziv(String robaNaziv) {
+        this.robaNaziv = robaNaziv;
     }
 }
