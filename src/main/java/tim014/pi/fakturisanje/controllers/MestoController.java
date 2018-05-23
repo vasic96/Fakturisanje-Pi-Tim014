@@ -11,20 +11,19 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "api/mesto")
 public class MestoController {
 
     @Autowired
     private MestoRepository mestoRepo;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "open/mesto/all")
     public ResponseEntity<List<Mesto>> dajSvaMesta() {
 
         return new ResponseEntity<List<Mesto>>(mestoRepo.findAll(), HttpStatus.OK);
 
     }
 
-    @PostMapping(value = "/add", consumes = "APPLICATION/JSON")
+    @PostMapping(value = "api/mesto/add", consumes = "APPLICATION/JSON")
     public ResponseEntity<Mesto> dodajMesto(@RequestBody Mesto mesto) {
 
         if (mesto != null) {
@@ -46,7 +45,7 @@ public class MestoController {
 
     }
 
-    @DeleteMapping(value = "/izbrisi/{id}")
+    @DeleteMapping(value = "api/mesto/izbrisi/{id}")
     public ResponseEntity<?> izbrisiMesto(@PathVariable Long id) {
 
         if (mestoRepo.existsById(id)) {
