@@ -63,4 +63,13 @@ public class FakturaController {
 
     }
 
+    @GetMapping("/all/{id}")
+    public ResponseEntity<?> fakturaPoId(@PathVariable Long id){
+        if(!fakturaRepo.existsById(id)){
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<FakturaDTO>(new FakturaDTO(fakturaRepo.getOne(id)),HttpStatus.OK);
+    }
+
 }

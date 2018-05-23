@@ -6,5 +6,5 @@ import tim014.pi.fakturisanje.model.StopaPDV;
 
 @Repository
 public interface StopaPdvRepository extends JpaRepository<StopaPDV, Long> {
-
+    public StopaPDV findStopaPDVByPdvId(Long id);
 }

@@ -6,5 +6,5 @@ import tim014.pi.fakturisanje.model.StavkaCenovnika;
 
 @Repository
 public interface StavkaCenovnikaRepository  extends JpaRepository<StavkaCenovnika, Long>{
-
+    public StavkaCenovnika findStavkaCenovnikaByRobaId(Long id);
 }
