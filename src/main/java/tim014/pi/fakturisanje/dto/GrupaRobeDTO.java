@@ -1,36 +1,34 @@
 package tim014.pi.fakturisanje.dto;
 
-import java.util.List;
-
 import tim014.pi.fakturisanje.model.GrupaRobe;
 
 public class GrupaRobeDTO {
 
 	private long id;
 	private String naziv;
-	private long preduzeceID;
-	private long pdvID;
+	private long preduzeceId;
+	private long pdvId;
 	
 
 	public GrupaRobeDTO() {
 		
 		
 	}
-	public GrupaRobeDTO(long id, String naziv, long preduzeceID, long pdvID) {
+	public GrupaRobeDTO(long id, String naziv, long preduzeceId, long pdvId) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
-		this.preduzeceID = preduzeceID;
-		this.pdvID = pdvID;
+		this.preduzeceId = preduzeceId;
+		this.pdvId = pdvId;
 	}
 	
 	
-	public GrupaRobeDTO(GrupaRobe gr) {
+	public GrupaRobeDTO(GrupaRobe grupaRobe) {
 		
-		this.id=gr.getId();
-		this.naziv=gr.getNaziv();
-		this.preduzeceID=gr.getPreduzece().getId();
-		this.pdvID=gr.getPdv().getId();
+		this.id=grupaRobe.getId();
+		this.naziv=grupaRobe.getNaziv();
+		this.preduzeceId=grupaRobe.getPreduzece().getId();
+		this.pdvId=grupaRobe.getPdv().getId();
 		
 		
 	}
@@ -47,17 +45,17 @@ public class GrupaRobeDTO {
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	public long getPreduzeceID() {
-		return preduzeceID;
+	public long getPreduzeceId() {
+		return preduzeceId;
 	}
-	public void setPreduzeceID(long preduzeceID) {
-		this.preduzeceID = preduzeceID;
+	public void setPreduzeceId(long preduzeceId) {
+		this.preduzeceId = preduzeceId;
 	}
-	public long getPdvID() {
-		return pdvID;
+	public long getPdvId() {
+		return pdvId;
 	}
-	public void setPdvID(long pdvID) {
-		this.pdvID = pdvID;
+	public void setPdvId(long pdvId) {
+		this.pdvId = pdvId;
 	}
 	
 	
