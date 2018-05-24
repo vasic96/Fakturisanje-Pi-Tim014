@@ -3,6 +3,8 @@ package tim014.pi.fakturisanje.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.FakturaDTO;
 import tim014.pi.fakturisanje.model.Faktura;
@@ -33,8 +35,11 @@ public class FakturaController {
 
     @GetMapping("/all")
     public ResponseEntity<?> sveFakture(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+
         List faktureDTO = new ArrayList();
-        for (Faktura faktura:fakturaRepo.findAll()) {
+        for (Faktura faktura:fakturaRepo.findAllByPreduzeceEmail(email)) {
             faktureDTO.add(new FakturaDTO(faktura));
         }
         return  new ResponseEntity<List<FakturaDTO>>(faktureDTO,HttpStatus.OK);
@@ -42,6 +47,9 @@ public class FakturaController {
 
     @PostMapping("/add")
     public ResponseEntity<?> dodajFakturu(@RequestBody FakturaDTO fakturaDTO){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+
         if (fakturaDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -54,7 +62,7 @@ public class FakturaController {
         Faktura faktura = new Faktura();
         faktura.setDatumFakture(fakturaDTO.getDatumFakture());
         faktura.setDatumValute(fakturaDTO.getDatumValute());
-        faktura.setPreduzece(preduzeceRepo.getOne(fakturaDTO.getPreduzeceId()));
+        faktura.setPreduzece(preduzeceRepo.findByEmail(email));
         faktura.setPoslovnaGodina(poslovnaGodinaRepository.getOne(fakturaDTO.getPoslovnaGodinaId()));
         faktura.setPoslovniPartner(poslovniPartneriRepository.getOne(fakturaDTO.getPoslovniPartnerId()));
         faktura.setStatus(fakturaDTO.getStatus());
@@ -65,11 +73,18 @@ public class FakturaController {
 
     @GetMapping("/all/{id}")
     public ResponseEntity<?> fakturaPoId(@PathVariable Long id){
-        if(!fakturaRepo.existsById(id)){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+        if(!fakturaRepo.existsById(id) ){
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if(!fakturaRepo.getOne(id).getPreduzece().getEmail().equals(email)){
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<FakturaDTO>(new FakturaDTO(fakturaRepo.getOne(id)),HttpStatus.OK);
+
     }
 
 }
