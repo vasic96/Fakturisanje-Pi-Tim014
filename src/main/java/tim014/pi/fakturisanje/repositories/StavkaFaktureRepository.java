@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StavkaFaktureRepository extends JpaRepository<StavkaFakture, Long>{
     List<StavkaFakture> findAllByFakturaId(Long id);
-
+    void deleteAllByFakturaId(Long id);
 }

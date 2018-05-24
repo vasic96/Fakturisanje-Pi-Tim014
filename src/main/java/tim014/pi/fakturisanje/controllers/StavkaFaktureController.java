@@ -12,6 +12,7 @@ import tim014.pi.fakturisanje.repositories.*;
 
 import javax.xml.ws.Response;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping(value = "api/stavka_fakture")
@@ -45,40 +46,51 @@ public class StavkaFaktureController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getPrincipal().toString();
         Faktura faktura = fakturaRepository.getOne(faktureDTO.getFakturaId());
-        if(faktura.getPreduzece().getEmail().equals(email)){
 
-            StavkaFakture stavkaFakture = new StavkaFakture();
-            stavkaFakture.setKolicina(faktureDTO.getKolicina());
-            double jedinicnaCena = stavkaCenovnikaRepository.findStavkaCenovnikaByRobaId(faktureDTO.getRobaId()).getCena();
-            double cena = jedinicnaCena * faktureDTO.getKolicina();
-            //double procenat = stopaPdvRepository.findStopaPDVByPdvId(robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv().getId()).getProcenat();
-            List<StopaPDV> stope = stopaPdvRepository.findAllStopaPDVByPdvId(robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv().getId());
-            double procenat = stope.get(stope.size()-1).getProcenat();
-            stavkaFakture.setRabat(faktureDTO.getRabat());
-            double osnovicaPDV = cena - ((cena / 100) * faktureDTO.getRabat());
-            stavkaFakture.setOsnovicaPDV(osnovicaPDV);
-            double iznosPDV = (osnovicaPDV / 100) * procenat;
-            stavkaFakture.setIznosPDV(iznosPDV);
-            stavkaFakture.setIznosStavka(osnovicaPDV + iznosPDV);
-            stavkaFakture.setRoba(robaRepository.getOne(faktureDTO.getRobaId()));
-            stavkaFakture.setFaktura(faktura);
-            stavkaFakture.setProcenatPDV(procenat);
-            stavkaFakture.setJedinicnaCena(jedinicnaCena);
+        boolean procenatOk = faktureDTO.getProcenatPDV() >= 0 && faktureDTO.getProcenatPDV() <91;
+        boolean kolicinaOk = faktureDTO.getKolicina()>0;
 
-            faktura.setOsnovica(faktura.getOsnovica() + osnovicaPDV);
-            faktura.setUkupanPDV(faktura.getUkupanPDV() + iznosPDV);
-            faktura.setIznosZaPlacanje(faktura.getIznosZaPlacanje() + osnovicaPDV + iznosPDV);
-
-            stavkaFaktureRepository.save(stavkaFakture);
-            fakturaRepository.save(faktura);
-
-
-            return new ResponseEntity<>(HttpStatus.OK);
-
-
+        if(faktura == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(!faktura.getPreduzece().getEmail().equals(email) || !procenatOk || !kolicinaOk){
+
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        StavkaFakture stavkaFakture = new StavkaFakture();
+
+
+        double jedinicnaCena = stavkaCenovnikaRepository.findStavkaCenovnikaByRobaId(faktureDTO.getRobaId()).getCena();
+        double cena = jedinicnaCena * faktureDTO.getKolicina();
+
+        PDV pdv = robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv();
+        List<StopaPDV> stope = stopaPdvRepository.findAllStopaPDVByPdvId(pdv.getId());
+        double procenat = stope.get(stope.size()-1).getProcenat();
+        double osnovicaPDV = cena - ((cena / 100) * faktureDTO.getRabat());
+        double iznosPDV = (osnovicaPDV / 100) * procenat;
+
+        stavkaFakture.setRabat(faktureDTO.getRabat());
+        stavkaFakture.setOsnovicaPDV(osnovicaPDV);
+        stavkaFakture.setKolicina(faktureDTO.getKolicina());
+        stavkaFakture.setIznosPDV(iznosPDV);
+        stavkaFakture.setIznosStavka(osnovicaPDV + iznosPDV);
+        stavkaFakture.setRoba(robaRepository.getOne(faktureDTO.getRobaId()));
+        stavkaFakture.setFaktura(faktura);
+        stavkaFakture.setProcenatPDV(procenat);
+        stavkaFakture.setJedinicnaCena(jedinicnaCena);
+
+        faktura.setOsnovica(faktura.getOsnovica() + osnovicaPDV);
+        faktura.setUkupanPDV(faktura.getUkupanPDV() + iznosPDV);
+        faktura.setIznosZaPlacanje(faktura.getIznosZaPlacanje() + osnovicaPDV + iznosPDV);
+
+        stavkaFaktureRepository.save(stavkaFakture);
+        fakturaRepository.save(faktura);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
 
 
     }

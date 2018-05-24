@@ -5,13 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.FakturaDTO;
 import tim014.pi.fakturisanje.model.Faktura;
-import tim014.pi.fakturisanje.repositories.FakturaRepository;
-import tim014.pi.fakturisanje.repositories.PoslovnaGodinaRepository;
-import tim014.pi.fakturisanje.repositories.PoslovniPartneriRepository;
-import tim014.pi.fakturisanje.repositories.PreduzeceRepository;
+import tim014.pi.fakturisanje.repositories.*;
 
 import javax.xml.ws.Response;
 import java.util.ArrayList;
@@ -32,6 +30,9 @@ public class FakturaController {
 
     @Autowired
     private PoslovnaGodinaRepository poslovnaGodinaRepository;
+
+    @Autowired
+    private StavkaFaktureRepository stavkaFaktureRepository;
 
     @GetMapping("/all")
     public ResponseEntity<?> sveFakture(){
@@ -80,11 +81,31 @@ public class FakturaController {
         }
 
         if(!fakturaRepo.getOne(id).getPreduzece().getEmail().equals(email)){
-            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<FakturaDTO>(new FakturaDTO(fakturaRepo.getOne(id)),HttpStatus.OK);
 
     }
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> izbrisiFakturu(@PathVariable Long id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+
+        Faktura faktura =  fakturaRepo.getOne(id);
+        if(faktura == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if(!faktura.getPreduzece().getEmail().equals(email)){
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        stavkaFaktureRepository.deleteAllByFakturaId(faktura.getId());
+        fakturaRepo.delete(faktura);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 
 }
