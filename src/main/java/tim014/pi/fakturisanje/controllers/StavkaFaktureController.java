@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.StavkaFaktureDTO;
-import tim014.pi.fakturisanje.model.Faktura;
-import tim014.pi.fakturisanje.model.GrupaRobe;
-import tim014.pi.fakturisanje.model.Roba;
-import tim014.pi.fakturisanje.model.StavkaFakture;
+import tim014.pi.fakturisanje.model.*;
 import tim014.pi.fakturisanje.repositories.*;
 
 import javax.xml.ws.Response;
@@ -47,7 +44,9 @@ public class StavkaFaktureController {
         stavkaFakture.setKolicina(faktureDTO.getKolicina());
         double jedinicnaCena = stavkaCenovnikaRepository.findStavkaCenovnikaByRobaId(faktureDTO.getRobaId()).getCena();
         double cena = jedinicnaCena * faktureDTO.getKolicina();
-        double procenat = stopaPdvRepository.findStopaPDVByPdvId(robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv().getId()).getProcenat();
+        //double procenat = stopaPdvRepository.findStopaPDVByPdvId(robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv().getId()).getProcenat();
+        List<StopaPDV> stope = stopaPdvRepository.findAllStopaPDVByPdvId(robaRepository.getOne(faktureDTO.getRobaId()).getGrupaRobe().getPdv().getId());
+        double procenat = stope.get(stope.size()-1).getProcenat();
         stavkaFakture.setRabat(faktureDTO.getRabat());
         double osnovicaPDV = cena - ((cena / 100) * faktureDTO.getRabat());
         stavkaFakture.setOsnovicaPDV(osnovicaPDV);
