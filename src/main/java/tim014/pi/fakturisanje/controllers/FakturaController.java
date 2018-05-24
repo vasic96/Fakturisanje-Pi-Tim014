@@ -53,7 +53,7 @@ public class FakturaController {
         if (fakturaDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if(!preduzeceRepo.existsById(fakturaDTO.getPreduzeceId()) || !poslovnaGodinaRepository.existsById(fakturaDTO.getPoslovnaGodinaId()) || !poslovniPartneriRepository.existsById(fakturaDTO.getPoslovniPartnerId())){
+        if(!poslovnaGodinaRepository.existsById(fakturaDTO.getPoslovnaGodinaId()) || !poslovniPartneriRepository.existsById(fakturaDTO.getPoslovniPartnerId())){
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
