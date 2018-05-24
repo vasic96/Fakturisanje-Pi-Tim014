@@ -12,7 +12,7 @@ public class StopaPdvDTO {
 	private double procenat; 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date datumVazenja;
-	private long pdvID;
+	private long pdvId;
 	
 	
 	public StopaPdvDTO() {
@@ -20,12 +20,12 @@ public class StopaPdvDTO {
 	}
 
 
-	public StopaPdvDTO(long id, double procenat, Date datumVazenja, long pdvID) {
+	public StopaPdvDTO(long id, double procenat, Date datumVazenja, long pdvId) {
 		super();
 		this.id = id;
 		this.procenat = procenat;
 		this.datumVazenja = datumVazenja;
-		this.pdvID = pdvID;
+		this.pdvId = pdvId;
 	}
 	
 	
@@ -68,13 +68,13 @@ public class StopaPdvDTO {
 	}
 
 
-	public long getPdvID() {
-		return pdvID;
+	public long getPdvId() {
+		return pdvId;
 	}
 
 
-	public void setPdvID(long pdvID) {
-		this.pdvID = pdvID;
+	public void setPdvId(long pdvId) {
+		this.pdvId = pdvId;
 	}
 	
 	

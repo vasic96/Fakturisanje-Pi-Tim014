@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim014.pi.fakturisanje.dto.StopaPdvDTO;
 import tim014.pi.fakturisanje.model.StopaPDV;
+import tim014.pi.fakturisanje.repositories.PdvRepository;
 import tim014.pi.fakturisanje.repositories.StopaPdvRepository;
 
 @RestController
@@ -24,6 +25,9 @@ public class StopaPdvController {
 
 	@Autowired
 	private StopaPdvRepository stopaPdvRepository;
+	
+	@Autowired
+	private PdvRepository pdvRepository;
 	
 	
 	@GetMapping(value="/all")
@@ -45,13 +49,23 @@ public class StopaPdvController {
 	}
 	
 	
-	@PostMapping(value= "/add",consumes= "APPLICATION/JSON")
-	public ResponseEntity<StopaPDV> addStopaPdv(@RequestBody StopaPDV stopaPDV){
-	if (stopaPDV == null) {
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-		return new ResponseEntity<StopaPDV>(stopaPdvRepository.save(stopaPDV), HttpStatus.CREATED);
+	
+	@PostMapping(value="/add")
+	public ResponseEntity<StopaPdvDTO> addStopaPdv(@RequestBody StopaPdvDTO stopaPdvDTO){
 		
+		if(stopaPdvDTO!= null) {
+				StopaPDV stopaPDV= new StopaPDV();
+				stopaPDV.setProcenat(stopaPdvDTO.getProcenat());
+				stopaPDV.setDatumVazenja(stopaPdvDTO.getDatumVazenja());
+				stopaPDV.setPdv(pdvRepository.getOne(stopaPdvDTO.getPdvId()));
+				stopaPdvRepository.save(stopaPDV);
+				
+				return new ResponseEntity<StopaPdvDTO>(new StopaPdvDTO(stopaPDV),HttpStatus.CREATED);
+				
+			
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping(value = "delete/{id}")
