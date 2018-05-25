@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.model.Mesto;
 import tim014.pi.fakturisanje.repositories.MestoRepository;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class MestoController {
 
     }
 
-    @PostMapping(value = "api/mesto/add", consumes = "APPLICATION/JSON")
+    @PostMapping(value = "open/mesto/add", consumes = "APPLICATION/JSON")
     public ResponseEntity<Mesto> dodajMesto(@RequestBody Mesto mesto) {
 
         if (mesto != null) {
@@ -45,7 +46,7 @@ public class MestoController {
 
     }
 
-    @DeleteMapping(value = "api/mesto/izbrisi/{id}")
+    @DeleteMapping(value = "api/mesto/delete/{id}")
     public ResponseEntity<?> izbrisiMesto(@PathVariable Long id) {
 
         if (mestoRepo.existsById(id)) {
@@ -55,6 +56,20 @@ public class MestoController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+    }
+
+    @PutMapping(value = "api/mesto/update/{id}")
+    public ResponseEntity<?> updateMesto(@RequestBody Mesto updatedMesto, @PathVariable Long id){
+        Mesto mesto = mestoRepo.getOne(id);
+            if(mesto == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        mesto.setId(id);
+        mesto.setGrad(updatedMesto.getGrad());
+        mesto.setDrzava(updatedMesto.getDrzava());
+        mestoRepo.save(mesto);
+
+        return new ResponseEntity<Mesto>(HttpStatus.OK);
     }
 
 
