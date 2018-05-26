@@ -1,5 +1,6 @@
 package tim014.pi.fakturisanje.controllers;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,20 +35,22 @@ public class PreduzeceController {
     public ResponseEntity<PreduzeceDTO> register(@RequestBody PreduzeceDTO preduzeceDTO) {
 
         if (preduzeceDTO != null) {
+            boolean emailValid = EmailValidator.getInstance().isValid(preduzeceDTO.getEmail());
 
-            Preduzece preduzece = new Preduzece();
-            preduzece.setNaziv(preduzeceDTO.getNaziv());
-            preduzece.setAdresa(preduzeceDTO.getAdresa());
-            preduzece.setPib(preduzeceDTO.getPib());
-            preduzece.setTelefon(preduzeceDTO.getTelefon());
-            preduzece.setEmail(preduzeceDTO.getEmail());
-            preduzece.setPassword(bCryptPasswordEncoder.encode(preduzeceDTO.getPassword()));
-            preduzece.setLogo(preduzeceDTO.getLogo());
-            preduzece.setTip(preduzeceDTO.getTip());
-            preduzece.setMesto(mestoRepo.getOne(preduzeceDTO.getMestoId()));
-            preduzeceRepo.save(preduzece);
-            return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
-
+                if(emailValid && preduzeceDTO.getPassword().length()>4) {
+                    Preduzece preduzece = new Preduzece();
+                    preduzece.setNaziv(preduzeceDTO.getNaziv());
+                    preduzece.setAdresa(preduzeceDTO.getAdresa());
+                    preduzece.setPib(preduzeceDTO.getPib());
+                    preduzece.setTelefon(preduzeceDTO.getTelefon());
+                    preduzece.setEmail(preduzeceDTO.getEmail());
+                    preduzece.setPassword(bCryptPasswordEncoder.encode(preduzeceDTO.getPassword()));
+                    preduzece.setLogo(preduzeceDTO.getLogo());
+                    preduzece.setTip(preduzeceDTO.getTip());
+                    preduzece.setMesto(mestoRepo.getOne(preduzeceDTO.getMestoId()));
+                    preduzeceRepo.save(preduzece);
+                    return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
+                }
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
