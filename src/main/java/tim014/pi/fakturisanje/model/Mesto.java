@@ -17,7 +17,7 @@ public class Mesto {
     @Column(nullable = false, length = 100)
     private String grad;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 100)
     private String drzava;
 
     @JsonIgnore

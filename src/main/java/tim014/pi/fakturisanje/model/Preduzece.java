@@ -3,6 +3,7 @@ package tim014.pi.fakturisanje.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -19,15 +20,17 @@ public class Preduzece {
     @Column(nullable = false)
     private String adresa;
 
-    @Column(nullable = false, length = 12)
+    @Size(max = 9,min = 9)
+    @Column(nullable = false)
     private int pib;
 
     @Column
     private String telefon;
 
-    @Column
+    @Column(unique = true,nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column
     private String password;
 
@@ -50,7 +53,7 @@ public class Preduzece {
     private List<Cenovnik> cenovnici;
 
     @ManyToOne
-    @JoinColumn(name = "mesto")
+    @JoinColumn(name = "mesto",nullable = false)
     private Mesto mesto;
 
     public Preduzece() {

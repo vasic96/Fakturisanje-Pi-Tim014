@@ -14,6 +14,7 @@ public class StavkaFakture {
     @Column(nullable = false)
     private int kolicina;
 
+    @Min(0)
     @Column(name = "jedinicna_cena", nullable = false)
     private double jedinicnaCena;
 
@@ -37,11 +38,11 @@ public class StavkaFakture {
     private double iznosStavke;
 
     @ManyToOne
-    @JoinColumn(name = "roba")
+    @JoinColumn(name = "roba",nullable = false)
     private Roba roba;
 
     @ManyToOne
-    @JoinColumn(name = "faktura")
+    @JoinColumn(name = "faktura",nullable = false)
     private Faktura faktura;
 
 

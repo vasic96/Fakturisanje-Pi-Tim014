@@ -42,15 +42,15 @@ public class Faktura {
     private List<StavkaFakture> stavkeFakture;
 
     @ManyToOne
-    @JoinColumn(name = "preduzece")
+    @JoinColumn(name = "preduzece",nullable = false)
     private Preduzece preduzece;
 
     @ManyToOne
-    @JoinColumn(name = "poslovni_partner")
+    @JoinColumn(name = "poslovni_partner",nullable = false)
     private PoslovniPartner poslovniPartner;
 
     @ManyToOne
-    @JoinColumn(name = "poslovna_godina")
+    @JoinColumn(name = "poslovna_godina",nullable = false)
     private PoslovnaGodina poslovnaGodina;
 
     public Faktura(Date datumFakture, Date datumValute, double osnovica, double ukupanPDV, double iznosZaPlacanje,
