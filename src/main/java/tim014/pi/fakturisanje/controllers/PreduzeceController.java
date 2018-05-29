@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.PreduzeceDTO;
+import tim014.pi.fakturisanje.model.Mesto;
 import tim014.pi.fakturisanje.model.PasswordConfirm;
 import tim014.pi.fakturisanje.model.Preduzece;
 import tim014.pi.fakturisanje.repositories.MestoRepository;
@@ -82,12 +83,12 @@ public class PreduzeceController {
         String email = auth.getPrincipal().toString();
 
         Preduzece preduzece = preduzeceRepo.findByEmail(email);
+        System.out.println(preduzece.getPassword());
+        System.out.println(bCryptPasswordEncoder.encode(passwordConfirm.getOldPassword()));
 
+        boolean isOldPasswordCorrect = bCryptPasswordEncoder.matches(passwordConfirm.getOldPassword(),preduzece.getPassword());
 
-        boolean isOldPasswordCorrect = preduzece.getPassword().equals(
-                bCryptPasswordEncoder.encode(passwordConfirm.getOldPassword())
-        );
-        if(!passwordConfirm.getPassword().equals(passwordConfirm.getConfirmPassword()) && !isOldPasswordCorrect){
+        if(!passwordConfirm.getPassword().equals(passwordConfirm.getConfirmPassword()) || !isOldPasswordCorrect){
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -96,6 +97,49 @@ public class PreduzeceController {
         preduzeceRepo.save(preduzece);
 
         return  new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @PutMapping("/api/change-info")
+    public ResponseEntity<?> uzmenaPodataka(@RequestBody PreduzeceDTO preduzeceDTO){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+
+        if(preduzeceDTO == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Mesto mesto  = mestoRepo.getOne(preduzeceDTO.getMestoId());
+
+        Preduzece preduzece = preduzeceRepo.findByEmail(email);
+        if(!bCryptPasswordEncoder.matches(preduzeceDTO.getPassword(),preduzece.getPassword())){
+            System.out.println(bCryptPasswordEncoder.matches(preduzeceDTO.getPassword(),preduzece.getPassword()));
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        if(!preduzeceDTO.getEmail().equals(email) && preduzeceRepo.findByEmail(preduzeceDTO.getEmail())!=null && mesto != null)  {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        preduzece.setNaziv(preduzeceDTO.getNaziv());
+        preduzece.setEmail(preduzeceDTO.getEmail());
+        preduzece.setTelefon(preduzeceDTO.getTelefon());
+        preduzece.setAdresa(preduzeceDTO.getAdresa());
+        preduzece.setTip(preduzeceDTO.getTip());
+        preduzece.setMesto(mesto);
+        preduzece.setLogo(preduzeceDTO.getLogo());
+
+        preduzeceRepo.save(preduzece);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @GetMapping("api/my-info")
+    public ResponseEntity<?> getMyInfo(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getPrincipal().toString();
+
+        return new ResponseEntity<>(new PreduzeceDTO(preduzeceRepo.findByEmail(email)),HttpStatus.OK);
+
 
     }
 

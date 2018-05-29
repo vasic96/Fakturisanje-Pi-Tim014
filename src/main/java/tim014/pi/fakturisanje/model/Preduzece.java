@@ -3,7 +3,6 @@ package tim014.pi.fakturisanje.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -20,8 +19,8 @@ public class Preduzece {
     @Column(nullable = false)
     private String adresa;
 
-    @Size(max = 9,min = 9)
-    @Column(nullable = false)
+
+    @Column(nullable = false,length = 9)
     private int pib;
 
     @Column
@@ -30,7 +29,6 @@ public class Preduzece {
     @Column(unique = true,nullable = false)
     private String email;
 
-    @JsonIgnore
     @Column
     private String password;
 
