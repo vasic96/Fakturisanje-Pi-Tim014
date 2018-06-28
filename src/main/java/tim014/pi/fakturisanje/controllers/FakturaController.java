@@ -1,6 +1,9 @@
 package tim014.pi.fakturisanje.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +17,7 @@ import tim014.pi.fakturisanje.repositories.*;
 import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping(value = "api/fakture")
 @RestController
@@ -35,15 +39,28 @@ public class FakturaController {
     private StavkaFaktureRepository stavkaFaktureRepository;
 
     @GetMapping("/all")
-    public ResponseEntity<?> sveFakture(){
+    public ResponseEntity<?> sveFakture(@RequestParam("page") Integer page,
+                                        @RequestParam("direction") String dir,
+                                        @RequestParam("order") String oreder){
+
+        Sort.Direction direction;
+        if(dir.equals("ASC")){
+            direction = Sort.Direction.ASC;
+        }else {
+            direction = Sort.Direction.DESC;
+        }
+
+        PageRequest request = PageRequest.of(page -1,10,direction,oreder);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getPrincipal().toString();
 
-        List faktureDTO = new ArrayList();
-        for (Faktura faktura:fakturaRepo.findAllByPreduzeceEmail(email)) {
-            faktureDTO.add(new FakturaDTO(faktura));
-        }
-        return  new ResponseEntity<List<FakturaDTO>>(faktureDTO,HttpStatus.OK);
+        Page<FakturaDTO> faktureDTO = fakturaRepo.findAllByPreduzeceEmail(email,request).map(
+                faktura -> new FakturaDTO(faktura)
+        );
+
+
+        return  new ResponseEntity<Page<FakturaDTO>>(faktureDTO,HttpStatus.OK);
     }
 
     @PostMapping("/add")
