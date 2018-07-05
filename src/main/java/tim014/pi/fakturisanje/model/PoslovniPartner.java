@@ -1,10 +1,11 @@
 package tim014.pi.fakturisanje.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity(name = "poslovni_partner")
 public class PoslovniPartner {
 
@@ -15,7 +16,7 @@ public class PoslovniPartner {
     @Column(nullable = false, unique = true, length = 150)
     private String naziv;
 
-    @Column(nullable = false)
+    @Column
     private String adresa;
 
     @Column(nullable = false)

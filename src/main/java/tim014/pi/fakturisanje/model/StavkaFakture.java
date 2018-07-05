@@ -1,10 +1,13 @@
 package tim014.pi.fakturisanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Entity(name = "stavka_fakture")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class StavkaFakture {
 
     @Id

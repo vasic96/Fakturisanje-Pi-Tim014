@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tim014.pi.fakturisanje.dto.PoslovniPartnerDTO;
 import tim014.pi.fakturisanje.model.PoslovniPartner;
+import tim014.pi.fakturisanje.repositories.MestoRepository;
 import tim014.pi.fakturisanje.repositories.PoslovniPartneriRepository;
+import tim014.pi.fakturisanje.repositories.PreduzeceRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +20,36 @@ public class PoslovniPartnerController {
     @Autowired
     private PoslovniPartneriRepository PPrepo;
 
+    @Autowired
+    private PreduzeceRepository preduzeceRepository;
+
+    @Autowired
+    private MestoRepository mestoRepository;
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<PoslovniPartnerDTO>> dajSvePoslovnePartnere() {
         List<PoslovniPartnerDTO> pp_repo = new ArrayList<>();
         for (PoslovniPartner pp : PPrepo.findAll()) {
+//            System.out.println(pp.getMesto().getDrzava());
             pp_repo.add(new PoslovniPartnerDTO(pp));
         }
         return new ResponseEntity<List<PoslovniPartnerDTO>>(pp_repo, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add", consumes = "APPLICATION/JSON")
-    public ResponseEntity<PoslovniPartner> dodajPoslovnogPartnera(@RequestBody PoslovniPartner pp) {
+    public ResponseEntity<PoslovniPartner> dodajPoslovnogPartnera(@RequestBody PoslovniPartnerDTO pp) {
         if (pp == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<PoslovniPartner>(PPrepo.save(pp), HttpStatus.OK);
+
+        PoslovniPartner poslovniPartner = new PoslovniPartner();
+        poslovniPartner.setNaziv(pp.getNaziv());
+        poslovniPartner.setVrsta(pp.getVrsta());
+        poslovniPartner.setMesto(mestoRepository.getOne(pp.getMestoId()));
+        poslovniPartner.setPreduzece(preduzeceRepository.getOne(pp.getPreduzeceId()));
+        poslovniPartner.setAdresa(pp.getAdresa());
+
+        return new ResponseEntity<PoslovniPartner>(PPrepo.save(poslovniPartner), HttpStatus.OK);
     }
 
     @GetMapping(value = "/all/{id}")
