@@ -1,8 +1,8 @@
 INSERT INTO mesto (grad, drzava) VALUES ("Valjevo","Srbija");
 INSERT INTO mesto (grad, drzava) VALUES ("Novi Sad","Srbija");
 
-INSERT INTO preduzece (naziv,adresa,pib,telefon,email,password,logo,tip,mesto) VALUES ("Preduzece","Adresa 1","123123","062326386","vasic@gmail.com","$2a$04$bzEOLn4UsdpikQdjY9At7O1.Qb4tE2ltiNl7h35Au2FV8k2fCUy.u","logo 1","tip 1",1);
-INSERT INTO preduzece (naziv,adresa,pib,telefon,email,password,logo,tip,mesto) VALUES ("Preduzece 2","Adresa 2","123123","062326386","aleksandar@gmail.com","$2a$04$bzEOLn4UsdpikQdjY9At7O1.Qb4tE2ltiNl7h35Au2FV8k2fCUy.u","logo 1","tip 2",2);
+INSERT INTO preduzece (naziv,adresa,pib,telefon,email,password,logo,tip,mesto) VALUES ("Preduzece","Adresa 1","123123","062326386","vasic@gmail.com","$2a$10$Z8O3J.Zjzfud8E3bLNvX7.FpXlklVPzo36VgxyVl8d6sZdjHvWUVK","logo 1","tip 1",1);
+INSERT INTO preduzece (naziv,adresa,pib,telefon,email,password,logo,tip,mesto) VALUES ("Preduzece 2","Adresa 2","123123","062326386","aleksandar@gmail.com","$2a$10$Z8O3J.Zjzfud8E3bLNvX7.FpXlklVPzo36VgxyVl8d6sZdjHvWUVK","logo 1","tip 2",2);
 
 INSERT INTO poslovna_godina (godina, zakljucena) VALUES (2010,0);
 INSERT INTO poslovna_godina (godina, zakljucena) VALUES (2011,0);
